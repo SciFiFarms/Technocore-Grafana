@@ -1,0 +1,25 @@
+apiVersion: 1
+
+datasources:
+  - name: TechnoCore
+    type: postgres
+    url: home_assistant_db:5432
+    #url: postgresql://home_assistant@home_assistant_db/home_assistant?sslmode=require&sslcert=/run/secrets/cert_bundle&sslkey=/run/secrets/key&sslrootcert=/run/secrets/ca
+    database: home_assistant
+    user: home_assistant
+    secureJsonData:
+      tlsCACert: ${CA}
+      tlsClientCert: ${CERT}
+      tlsClientKey: ${KEY}
+    jsonData:
+      tlsAuth: true
+      tlsAuthWithCACert: true
+      tlsSkipVerify: true
+      # I tried: require&sslcert=/run/secrets/cert_bundle&sslkey=/run/secrets/key&sslrootcert=/run/secrets/ca 
+      # but it validates that the value is one of 4 specific settings.
+      sslmode: require
+      maxOpenConns: 0         # Grafana v5.4+
+      maxIdleConns: 2         # Grafana v5.4+
+      connMaxLifetime: 14400  # Grafana v5.4+
+      postgresVersion: 1000 # 903=9.3, 904=9.4, 905=9.5, 906=9.6, 1000=10
+      timescaledb: false

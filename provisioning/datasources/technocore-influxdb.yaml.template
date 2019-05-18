@@ -1,0 +1,14 @@
+apiVersion: 1
+
+datasources:
+  - name: Home Assistant
+    type: influxdb
+    access: proxy
+    database: home_assistant
+    user: ${TIMESERIES_DB_USERNAME}
+    password: ${TIMESERIES_DB_PASSWORD}
+    url: http://timeseries_db:8086
+    secureJsonData:
+      password: ${TIMESERIES_DB_PASSWORD}
+    jsonData:
+      httpMode: GET
