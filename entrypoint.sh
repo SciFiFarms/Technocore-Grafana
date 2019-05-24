@@ -10,3 +10,4 @@ set +a
 # TODO: Rather than do this by hand, should loop over all .template files in the folder.
 cat /etc/grafana/provisioning/datasources/technocore-postgres.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-postgres.yaml
 cat /etc/grafana/provisioning/datasources/technocore-influxdb.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-influxdb.yaml
+cat /etc/grafana/provisioning/datasources/technocore-prometheus.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-prometheus.yaml
