@@ -1,4 +1,4 @@
-FROM grafana/grafana:6.1.6
+FROM grafana/grafana:6.2.2
 
 USER root
 # Install envsubst. Needed in entrypoint.sh and comes in the gettext-base package.
