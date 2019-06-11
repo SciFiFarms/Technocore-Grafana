@@ -11,3 +11,4 @@ set +a
 cat /etc/grafana/provisioning/datasources/technocore-postgres.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-postgres.yaml
 cat /etc/grafana/provisioning/datasources/technocore-influxdb.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-influxdb.yaml
 cat /etc/grafana/provisioning/datasources/technocore-prometheus.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-prometheus.yaml
+cat /etc/grafana/provisioning/datasources/technocore-loki.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-loki.yaml
