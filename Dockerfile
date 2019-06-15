@@ -1,4 +1,8 @@
 FROM grafana/grafana:6.2.2
+# Needed because Grafana is embedded within Home Assistant
+ENV GF_SECURITY_ALLOW_EMBEDDING=true
+# Needed because Grafana is running behind https.
+ENV GF_SECURITY_COOKIE_SECURE=true
 
 USER root
 # Install envsubst. Needed in entrypoint.sh and comes in the gettext-base package.
