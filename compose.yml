@@ -1,0 +1,137 @@
+version: "3.5"
+
+networks:
+  grafana:
+  grafana-private:
+
+volumes:
+  grafana:
+  timeseries-db:
+
+secrets:
+  grafana_cert_bundle:
+    name: ${stack_name:-technocore}_grafana_cert_bundle
+    external: true
+  grafana_key:
+    name: ${stack_name:-technocore}_grafana_key
+    external: true
+  grafana_timeseries_db_username:
+    name: ${stack_name:-technocore}_grafana_timeseries_db_username
+    external: true
+  grafana_timeseries_db_password:
+    name: ${stack_name:-technocore}_grafana_timeseries_db_password
+    external: true
+  grafana_domain:
+    name: ${stack_name:-technocore}_grafana_domain
+    external: true
+
+  timeseries_db_admin_username:
+    name: ${stack_name:-technocore}_timeseries_db_admin_username
+    external: true
+  timeseries_db_admin_password:
+    name: ${stack_name:-technocore}_timeseries_db_admin_password
+    external: true
+  timeseries_db_grafana_username:
+    name: ${stack_name:-technocore}_timeseries_db_grafana_username
+    external: true
+  timeseries_db_grafana_password:
+    name: ${stack_name:-technocore}_timeseries_db_grafana_password
+    external: true
+  timeseries_db_home_assistant_username:
+    name: ${stack_name:-technocore}_timeseries_db_home_assistant_username
+    external: true
+  timeseries_db_home_assistant_password:
+    name: ${stack_name:-technocore}_timeseries_db_home_assistant_password
+    external: true
+  timeseries_db_cert_bundle:
+    name: ${stack_name:-technocore}_timeseries_db_cert_bundle
+    external: true
+  timeseries_db_key:
+    name: ${stack_name:-technocore}_timeseries_db_key
+    external: true
+
+services:
+  ingress:
+    networks:
+      - grafana
+
+  grafana:
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:grafana.${DOMAIN}
+        - traefik.enable=true
+        - traefik.port=3000
+        - traefik.tags=ingress 
+        - traefik.docker.network=${STACK_NAME:-technocore}_grafana
+        # Traefik service that listens to HTTP
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
+      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+    environment:
+      #- GF_SERVER_DOMAIN=grafana.${DOMAIN}
+      #spencer-laptop/grafana/
+      # Below was enabled. Not good?
+      - GF_SERVER_ROOT_URL=https://${GRAFANA_PATH_PREFIX}
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      #- GF_SERVER_ROOT_URL=${GF_SERVER_ROOT_URL:-localhost}
+      #- GF_SMTP_ENABLED=${GF_SMTP_ENABLED:-false}
+      #- GF_SMTP_FROM_ADDRESS=${GF_SMTP_FROM_ADDRESS:-grafana@test.com}
+      #- GF_SMTP_FROM_NAME=${GF_SMTP_FROM_NAME:-Grafana}
+      #- GF_SMTP_HOST=${GF_SMTP_HOST:-smtp:25}
+      #- GF_SMTP_USER=${GF_SMTP_USER}
+      #- GF_SMTP_PASSWORD=${GF_SMTP_PASSWORD}
+    image: ${image_provider:-scififarms}/technocore-grafana:${TAG:-latest}
+    #image: stefanprodan/swarmprom-grafana:5.3.4
+    #<<: *logging-defaults
+    networks:
+      - grafana
+      - grafana-private
+    secrets:
+      - source: grafana_timeseries_db_username
+        target: timeseries_db_username
+      - source: grafana_timeseries_db_password
+        target: timeseries_db_password
+      - source: grafana_domain
+        target: domain
+    volumes:
+      - grafana:/var/lib/grafana
+
+  timeseries_db:
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+    #environment:
+    image: ${image_provider:-scififarms}/technocore-influxdb:${TAG:-latest}
+    #<<: *logging-defaults
+    networks:
+      - grafana-private
+    secrets:
+      - source: timeseries_db_admin_username
+        target: admin_username
+      - source: timeseries_db_admin_password
+        target: admin_password
+      - source: timeseries_db_home_assistant_username
+        target: home_assistant_username
+      - source: timeseries_db_home_assistant_password
+        target: home_assistant_password
+      - source: timeseries_db_grafana_username
+        target: grafana_username
+      - source: timeseries_db_grafana_password
+        target: grafana_password
+    volumes:
+      - timeseries-db:/var/lib/influxdb
