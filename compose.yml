@@ -58,6 +58,7 @@ services:
   grafana:
     deploy:
       labels:
+        - traefik.frontend.auth.basic.removeHeader=true
         - traefik.frontend.rule=$GRAFANA_ROUTING_LABEL
         - traefik.frontend.priority=$GRAFANA_ROUTING_LABEL_PRIORITY
         - traefik.port=3000
@@ -142,4 +143,4 @@ services:
       - source: timeseries_db_grafana_password
         target: grafana_password
     volumes:
-      - timeseries-db:/var/lib/influxdb
+      - timeseries-db:/var/lib/influx
