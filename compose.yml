@@ -58,9 +58,11 @@ services:
   grafana:
     deploy:
       labels:
-        - traefik.frontend.rule=Host:grafana.${DOMAIN}
-        - traefik.enable=true
+        - traefik.frontend.rule=$GRAFANA_ROUTING_LABEL
+        - traefik.frontend.priority=$GRAFANA_ROUTING_LABEL_PRIORITY
         - traefik.port=3000
+        - ${TRAEFIK_BASIC_AUTH}
+        - traefik.enable=true
         - traefik.tags=ingress 
         - traefik.docker.network=${STACK_NAME:-technocore}_grafana
         # Traefik service that listens to HTTP
@@ -68,7 +70,6 @@ services:
         - traefik.redirectorservice.frontend.redirect.entryPoint=https
         # Traefik service that listens to HTTPS
         - traefik.webservice.frontend.entryPoints=https
-        - ${TRAEFIK_BASIC_AUTH}
       mode: global
       restart_policy:
         condition: any
