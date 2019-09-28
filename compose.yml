@@ -58,6 +58,7 @@ services:
   grafana:
     deploy:
       labels:
+        - com.ouroboros.enable=true
         - traefik.frontend.auth.basic.removeHeader=true
         - traefik.frontend.rule=$GRAFANA_ROUTING_LABEL
         - traefik.frontend.priority=$GRAFANA_ROUTING_LABEL_PRIORITY
@@ -118,6 +119,8 @@ services:
 
   timeseries_db:
     deploy:
+      labels:
+        - com.ouroboros.enable=true
       mode: global
       restart_policy:
         condition: any
