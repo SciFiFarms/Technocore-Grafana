@@ -5,10 +5,10 @@ datasources:
     type: influxdb
     access: proxy
     database: home_assistant
-    user: ${TIMESERIES_DB_USERNAME}
-    password: ${TIMESERIES_DB_PASSWORD}
-    url: http://timeseries_db:8086
+    user: ${influxdb_USERNAME}
+    password: ${influxdb_PASSWORD}
+    url: http://influxdb:8086
     secureJsonData:
-      password: ${TIMESERIES_DB_PASSWORD}
+      password: ${influxdb_PASSWORD}
     jsonData:
       httpMode: GET

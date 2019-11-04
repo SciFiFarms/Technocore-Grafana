@@ -6,7 +6,7 @@ networks:
 
 volumes:
   grafana:
-  timeseries-db:
+  influxdb:
 
 secrets:
   grafana_influxdb_password:
@@ -77,23 +77,25 @@ services:
       - grafana
       - grafana-private
     secrets:
-      - source: grafana_timeseries_db_username
-        target: timeseries_db_username
-      - source: grafana_timeseries_db_password
-        target: timeseries_db_password
-      - source: grafana_domain
-        target: domain
+      - source: grafana_influxdb_password
+        target: influxdb_password
     volumes:
       - grafana:/var/lib/grafana
 
-  timeseries_db:
+  influxdb:
     deploy:
       labels:
         - com.ouroboros.enable=true
       mode: global
       restart_policy:
         condition: any
-    #environment:
+    environment:
+      - INFLUXDB_ADMIN_USER=$ADMIN_USER
+      - INFLUXDB_ADMIN_PASSWORD={{"{{DOCKER-SECRET:admin_password}}"}}
+      - INFLUXDB_USER=home_assistant
+      - INFLUXDB_USER_PASSWORD={{"{{DOCKER-SECRET:home_assistant_password}}"}}
+      - INFLUXDB_READ_USER=grafana
+      - INFLUXDB_READ_USER_PASSWORD={{"{{DOCKER-SECRET:grafana_password}}"}}
     image: ${image_provider:-scififarms}/technocore-influxdb:${TAG:-latest}
     logging:
       driver: "${LOGGING_DRIVER}"
@@ -102,17 +104,9 @@ services:
     networks:
       - grafana-private
     secrets:
-      - source: timeseries_db_admin_username
-        target: admin_username
-      - source: timeseries_db_admin_password
+      - source: influxdb_admin_password
         target: admin_password
-      - source: timeseries_db_home_assistant_username
-        target: home_assistant_username
-      - source: timeseries_db_home_assistant_password
-        target: home_assistant_password
-      - source: timeseries_db_grafana_username
-        target: grafana_username
-      - source: timeseries_db_grafana_password
+      - source: influxdb_grafana_password
         target: grafana_password
     volumes:
-      - timeseries-db:/var/lib/influx
+      - influxdb:/var/lib/influx

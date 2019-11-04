@@ -2,4 +2,4 @@
 
 source ${TECHNOCORE_LIB}/create-secret.sh
 
-generate_password_for timeseries_db
+generate_password_for influxdb
