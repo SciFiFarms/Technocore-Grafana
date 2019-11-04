@@ -9,45 +9,14 @@ volumes:
   timeseries-db:
 
 secrets:
-  grafana_cert_bundle:
-    name: ${stack_name:-technocore}_grafana_cert_bundle
+  grafana_influxdb_password:
+    name: ${STACK_NAME:-technocore}_grafana_influxdb_password
     external: true
-  grafana_key:
-    name: ${stack_name:-technocore}_grafana_key
+  influxdb_admin_password:
+    name: ${STACK_NAME:-technocore}_influxdb_admin_password
     external: true
-  grafana_timeseries_db_username:
-    name: ${stack_name:-technocore}_grafana_timeseries_db_username
-    external: true
-  grafana_timeseries_db_password:
-    name: ${stack_name:-technocore}_grafana_timeseries_db_password
-    external: true
-  grafana_domain:
-    name: ${stack_name:-technocore}_grafana_domain
-    external: true
-
-  timeseries_db_admin_username:
-    name: ${stack_name:-technocore}_timeseries_db_admin_username
-    external: true
-  timeseries_db_admin_password:
-    name: ${stack_name:-technocore}_timeseries_db_admin_password
-    external: true
-  timeseries_db_grafana_username:
-    name: ${stack_name:-technocore}_timeseries_db_grafana_username
-    external: true
-  timeseries_db_grafana_password:
-    name: ${stack_name:-technocore}_timeseries_db_grafana_password
-    external: true
-  timeseries_db_home_assistant_username:
-    name: ${stack_name:-technocore}_timeseries_db_home_assistant_username
-    external: true
-  timeseries_db_home_assistant_password:
-    name: ${stack_name:-technocore}_timeseries_db_home_assistant_password
-    external: true
-  timeseries_db_cert_bundle:
-    name: ${stack_name:-technocore}_timeseries_db_cert_bundle
-    external: true
-  timeseries_db_key:
-    name: ${stack_name:-technocore}_timeseries_db_key
+  influxdb_grafana_password:
+    name: ${STACK_NAME:-technocore}_influxdb_grafana_password
     external: true
 
 services:
