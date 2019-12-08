@@ -1,4 +1,49 @@
 #!/usr/bin/env bash
+# Most of this file comes from https://medium.com/@basi/docker-environment-variables-expanded-from-secrets-8fa70617b3bc 
+# Thanks Basilio Vera, Rubén Norte, and Jose Manuel Cardona! 
+
+: ${ENV_SECRETS_DIR:=/run/secrets}
+
+env_secret_debug()
+{
+    if [ ! -z "$ENV_SECRETS_DEBUG" ]; then
+        echo -e "\033[1m$@\033[0m"
+    fi
+}
+
+# usage: env_secret_expand VAR
+#    ie: env_secret_expand 'XYZ_DB_PASSWORD'
+# (will check for "$XYZ_DB_PASSWORD" variable value for a placeholder that defines the
+#  name of the docker secret to use instead of the original value. For example:
+# XYZ_DB_PASSWORD={{DOCKER-SECRET:my-db.secret}}
+env_secret_expand() {
+    var="$1"
+    eval val=\$$var
+    if secret_name=$(expr match "$val" "{{DOCKER-SECRET:\([^}]\+\)}}$"); then
+        secret="${ENV_SECRETS_DIR}/${secret_name}"
+        env_secret_debug "Secret file for $var: $secret"
+        if [ -f "$secret" ]; then
+            val=$(cat "${secret}")
+            export "$var"="$val"
+            env_secret_debug "Expanded variable: $var=$val"
+        else
+            env_secret_debug "Secret file does not exist! $secret"
+        fi
+    fi
+}
+
+env_secrets_expand() {
+    for env_var in $(printenv | cut -f1 -d"=")
+    do
+        env_secret_expand $env_var
+    done
+
+    if [ ! -z "$ENV_SECRETS_DEBUG" ]; then
+        echo -e "\n\033[1mExpanded environment variables\033[0m"
+        printenv
+    fi
+}
+env_secrets_expand
 
 # https://unix.stackexchange.com/questions/79068/how-to-export-variables-that-are-set-all-at-once
 set -a
@@ -12,3 +57,9 @@ cat /etc/grafana/provisioning/datasources/technocore-postgres.yaml.template | en
 cat /etc/grafana/provisioning/datasources/technocore-influxdb.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-influxdb.yaml
 cat /etc/grafana/provisioning/datasources/technocore-prometheus.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-prometheus.yaml
 cat /etc/grafana/provisioning/datasources/technocore-loki.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-loki.yaml
+
+dogfish migrate &
+
+# Add any additional script here. 
+
+exec "$@"
