@@ -1,4 +1,4 @@
-FROM grafana/grafana:6.3.0-beta1
+FROM grafana/grafana:6.5.1
 # Needed because Grafana is embedded within Home Assistant
 ENV GF_SECURITY_ALLOW_EMBEDDING=true
 # Needed because Grafana is running behind https.
@@ -6,9 +6,7 @@ ENV GF_SECURITY_COOKIE_SECURE=true
 
 USER root
 # Install envsubst. Needed in entrypoint.sh and comes in the gettext-base package.
-RUN apt-get update && apt-get install -y gettext-base && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add gettext
 COPY provisioning /etc/grafana/provisioning
 RUN chown -R grafana:grafana "$GF_PATHS_PROVISIONING" 
 USER grafana
