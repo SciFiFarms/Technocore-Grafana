@@ -1,0 +1,7 @@
+version: "3.5"
+
+services:
+  home_assistant:
+    environment:
+      - SIDEBAR_GRAFANA=        Grafana|grafana.$DOMAIN|mdi:chart-areaspline
+      
