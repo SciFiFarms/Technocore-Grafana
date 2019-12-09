@@ -5,10 +5,9 @@ datasources:
     type: influxdb
     access: proxy
     database: home_assistant
-    user: ${influxdb_USERNAME}
-    password: ${influxdb_PASSWORD}
+    user: ${INFLUXDB_USER}
     url: http://influxdb:8086
     secureJsonData:
-      password: ${influxdb_PASSWORD}
+      password: ${INFLUXDB_PASSWORD}
     jsonData:
       httpMode: GET
