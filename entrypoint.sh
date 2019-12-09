@@ -45,8 +45,13 @@ env_secrets_expand() {
 }
 env_secrets_expand
 
+# TODO: Rather than do this by hand, should loop over all .template files in the folder.
+cat /etc/grafana/provisioning/datasources/technocore-postgres.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-postgres.yaml
+cat /etc/grafana/provisioning/datasources/technocore-influxdb.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-influxdb.yaml
+cat /etc/grafana/provisioning/datasources/technocore-prometheus.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-prometheus.yaml
+cat /etc/grafana/provisioning/datasources/technocore-loki.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-loki.yaml
 
-dogfish migrate &
+#dogfish migrate &
 
 # Add any additional script here. 
 

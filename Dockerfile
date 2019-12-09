@@ -3,7 +3,6 @@ FROM grafana/grafana:6.3.0-beta1
 ENV GF_SECURITY_ALLOW_EMBEDDING=true
 # Needed because Grafana is running behind https.
 ENV GF_SECURITY_COOKIE_SECURE=true
-ENV GF_SERVER_SERVE_FROM_SUB_PATH=true
 
 USER root
 # Install envsubst. Needed in entrypoint.sh and comes in the gettext-base package.
@@ -13,6 +12,14 @@ RUN apt-get update && apt-get install -y gettext-base && \
 COPY provisioning /etc/grafana/provisioning
 RUN chown -R grafana:grafana "$GF_PATHS_PROVISIONING" 
 USER grafana
+
+## Add dogfish
+#COPY dogfish/ /usr/share/dogfish
+#COPY migrations/ /usr/share/dogfish/shell-migrations
+#RUN ln -s /usr/share/dogfish/dogfish /usr/bin/dogfish
+#RUN mkdir /var/lib/dogfish 
+## Need to do this all together because ultimately, the config folder is a volume, and anything done in there will be lost. 
+#RUN mkdir -p /var/www/html/config/ && touch /var/www/html/config/migrations.log && ln -s /var/www/html/config/migrations.log /var/lib/dogfish/migrations.log 
 
 # Set up the CMD as well as the pre and post hooks.
 COPY go-init /bin/go-init
