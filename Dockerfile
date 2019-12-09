@@ -20,4 +20,4 @@ COPY entrypoint.sh /usr/bin/entrypoint.sh
 COPY exitpoint.sh /usr/bin/exitpoint.sh
 
 ENTRYPOINT ["go-init"]
-CMD ["-pre", "entrypoint.sh", "-main", "/run.sh", "-post", "exitpoint.sh"]
+CMD ["-main", "entrypoint.sh /run.sh", "-post", "exitpoint.sh"]

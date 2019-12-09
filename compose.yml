@@ -57,15 +57,13 @@ services:
         reservations:
           memory: 64M
     environment:
-      #- GF_SERVER_DOMAIN=grafana.${DOMAIN}
-      #spencer-laptop/grafana/
-      # Below was enabled. Not good?
       - INFLUXDB_USER=grafana
       - INFLUXDB_PASSWORD={{"{{DOCKER-SECRET:influxdb_password}}"}}
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD={{"{{DOCKER-SECRET:admin_password}}"}}
       - GF_USERS_ALLOW_SIGN_UP=false
-      #- GF_SERVER_ROOT_URL=${GF_SERVER_ROOT_URL:-localhost}
+      - GF_SERVER_ROOT_URL=https://grafana.${DOMAIN}/
+      - GF_SERVER_DOMAIN=grafana.${DOMAIN}
       #- GF_SMTP_ENABLED=${GF_SMTP_ENABLED:-false}
       #- GF_SMTP_FROM_ADDRESS=${GF_SMTP_FROM_ADDRESS:-grafana@test.com}
       #- GF_SMTP_FROM_NAME=${GF_SMTP_FROM_NAME:-Grafana}
