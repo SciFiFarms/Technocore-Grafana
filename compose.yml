@@ -28,11 +28,12 @@ services:
     deploy:
       labels:
         - com.ouroboros.enable=true
-        - traefik.frontend.auth.basic.removeHeader=true
         - traefik.frontend.rule=$GRAFANA_ROUTING_LABEL
         - traefik.frontend.priority=$GRAFANA_ROUTING_LABEL_PRIORITY
         - traefik.port=3000
         - ${TRAEFIK_BASIC_AUTH}
+        - ${TRAEFIK_BASIC_AUTH_REMOVE_HEADERS}
+        - "traefik.frontend.auth.headerField=X-Traefik-basicauth"
         - traefik.enable=true
         - traefik.tags=ingress 
         - traefik.docker.network=${STACK_NAME:-technocore}_grafana
