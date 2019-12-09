@@ -49,8 +49,6 @@ env_secrets_expand
 set -a
 GF_SERVER_ROOT_URL=https://${DOCKER_HOST}/grafana/
 
-INFLUXDB_USERNAME=$(cat /run/secrets/influxdb_username)
-INFLUXDB_PASSWORD=$(cat /run/secrets/influxdb_password)
 set +a
 # TODO: Rather than do this by hand, should loop over all .template files in the folder.
 cat /etc/grafana/provisioning/datasources/technocore-postgres.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-postgres.yaml

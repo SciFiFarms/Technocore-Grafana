@@ -12,6 +12,9 @@ secrets:
   grafana_influxdb_password:
     name: ${STACK_NAME:-technocore}_grafana_influxdb_password
     external: true
+  grafana_admin_password:
+    name: ${STACK_NAME:-technocore}_grafana_admin_password
+    external: true
   influxdb_admin_password:
     name: ${STACK_NAME:-technocore}_influxdb_admin_password
     external: true
@@ -57,9 +60,10 @@ services:
       #- GF_SERVER_DOMAIN=grafana.${DOMAIN}
       #spencer-laptop/grafana/
       # Below was enabled. Not good?
-      - GF_SERVER_ROOT_URL=https://${GRAFANA_PATH_PREFIX}
+      - INFLUXDB_USER=grafana
+      - INFLUXDB_PASSWORD={{"{{DOCKER-SECRET:influxdb_password}}"}}
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
-      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD={{"{{DOCKER-SECRET:admin_password}}"}}
       - GF_USERS_ALLOW_SIGN_UP=false
       #- GF_SERVER_ROOT_URL=${GF_SERVER_ROOT_URL:-localhost}
       #- GF_SMTP_ENABLED=${GF_SMTP_ENABLED:-false}
@@ -80,6 +84,8 @@ services:
     secrets:
       - source: grafana_influxdb_password
         target: influxdb_password
+      - source: grafana_admin_password
+        target: admin_password
     volumes:
       - grafana:/var/lib/grafana
 
