@@ -114,4 +114,5 @@ services:
       - source: influxdb_grafana_password
         target: grafana_password
     volumes:
-      - influxdb:/var/lib/influx
+      - influxdb:/var/lib/influxdb
+      
