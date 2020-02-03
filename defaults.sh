@@ -26,3 +26,4 @@ set_service_flag $service_name
 #generate_mount dev shell-migrations /usr/share/dogfish/shell-migrations
 
 set_optional_service home-assistant
+set_optional_service smtp_relay
