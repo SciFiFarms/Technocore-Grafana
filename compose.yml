@@ -68,6 +68,7 @@ services:
       - GF_SMTP_FROM_ADDRESS=${TECHNOCORE_SMTP_ADDRESS:-grafana@example.com}
       - GF_SMTP_FROM_NAME=${GF_SMTP_FROM_NAME:-Grafana}
       - GF_SMTP_HOST=smtp_relay:587
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
       #- GF_SMTP_USER=${GF_SMTP_USER}
       #- GF_SMTP_PASSWORD=${GF_SMTP_PASSWORD}
     image: ${image_provider:-scififarms}/technocore-grafana:${TAG:-latest}
