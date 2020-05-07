@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:SciFiFarms/Grafana-AJAX-Panel.git
+	branch = master
+	commit = 8060c47ed88cab68390674bd61773bf87e5df13d
+	parent = 12b761ec2ce20521a4a132ef71fc47d678b98223
+	method = merge
+	cmdver = 0.4.0
