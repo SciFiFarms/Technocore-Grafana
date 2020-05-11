@@ -36,5 +36,5 @@ export enum RenderMode {
   image = 'image',
   json = 'json',
   template = 'template',
-  trustedHtml = 'trustedHtml'
+  trustedHtml = 'trustedHtml',
 }

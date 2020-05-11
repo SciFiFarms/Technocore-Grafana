@@ -443,9 +443,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
     if (txt) {
       this.ngtemplate.html(txt);
       this.ngtemplate.css('display', 'block');
-      if (this.panel.mode != RenderMode.trustedHtml) {
-        this.$compile(this.ngtemplate.contents())(this.$scope);
-      }
+      this.$compile(this.ngtemplate.contents())(this.$scope);
     } else {
       this.ngtemplate.css('display', 'none');
     }
@@ -557,7 +555,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
     }
 
     // JSON Node needs to force refresh
-    if (this.panel.mode == RenderMode.json || this.panel.mode == RenderMode.trustedHtml) {
+    if (this.panel.mode === RenderMode.json || this.panel.mode === RenderMode.trustedHtml) {
       this.updateTemplate();
     }
   }
