@@ -1,0 +1,1 @@
+ln -s /usr/share/grafana/plugins/ajax-panel /var/lib/grafana/plugins/
