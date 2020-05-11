@@ -10,7 +10,19 @@ USER root
 RUN apk add gettext
 COPY provisioning /etc/grafana/provisioning
 RUN chown -R grafana:grafana "$GF_PATHS_PROVISIONING" 
+
+# Add dogfish
+# This should be set to where the volume mounts to.
+ARG PERSISTANT_DIR=/var/lib/grafana
+COPY dogfish/ /usr/share/dogfish
+COPY migrations/ /usr/share/dogfish/shell-migrations
+RUN ln -s /usr/share/dogfish/dogfish /usr/bin/dogfish
+RUN mkdir /var/lib/dogfish 
+RUN chown -R grafana:grafana /var/lib/dogfish/
+# Need to do this all together because ultimately, the config folder is a volume, and anything done in there will be lost. 
+
 USER grafana
+RUN mkdir -p ${PERSISTANT_DIR} && touch ${PERSISTANT_DIR}/migrations.log && ln -s ${PERSISTANT_DIR}/migrations.log /var/lib/dogfish/migrations.log 
 
 ## Add dogfish
 #COPY dogfish/ /usr/share/dogfish

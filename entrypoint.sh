@@ -51,7 +51,7 @@ cat /etc/grafana/provisioning/datasources/technocore-influxdb.yaml.template | en
 cat /etc/grafana/provisioning/datasources/technocore-prometheus.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-prometheus.yaml
 cat /etc/grafana/provisioning/datasources/technocore-loki.yaml.template | envsubst > /etc/grafana/provisioning/datasources/technocore-loki.yaml
 
-#dogfish migrate &
+dogfish migrate &
 
 # Add any additional script here. 
 

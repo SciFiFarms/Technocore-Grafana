@@ -87,6 +87,7 @@ services:
         target: admin_password
     volumes:
       - grafana:/var/lib/grafana
+      - ${DEV_MOUNT_GRAFANA_MIGRATIONS:-$EMPTY_MOUNT}
 
   influxdb:
     deploy:
