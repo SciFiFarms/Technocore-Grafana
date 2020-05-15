@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1588965936421,
+  "iteration": 1589561421752,
   "links": [],
   "panels": [
     {
@@ -29,7 +29,7 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 10,
         "x": 0,
         "y": 0
       },
@@ -159,8 +159,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
+        "w": 10,
+        "x": 10,
         "y": 0
       },
       "hiddenSeries": false,
@@ -280,16 +280,46 @@
       }
     },
     {
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "header_js": "{}",
+      "id": 15,
+      "method": "GET",
+      "mode": "trustedHtml",
+      "options": {},
+      "params_js": "{\n time_range_start:ctrl.range.from.format('x'),  // x is unix ms timestamp\n time_range_end:ctrl.range.to.format('x'), \n interval: ctrl.template('$__interval'),\n seedship_id: ctrl.template('${SeedShips:csv}'),\n}",
+      "request": "http",
+      "responseType": "text",
+      "showErrors": true,
+      "showTime": false,
+      "showTimeFormat": "LTS",
+      "showTimePrefix": null,
+      "showTimeValue": "request",
+      "skipSameURL": false,
+      "templateResponse": true,
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Calibrate PSI Sensors",
+      "type": "ryantxu-ajax-panel",
+      "url": "https://ummon.$domain/api/sensor/$calibration_entity/calibrate/",
+      "withCredentials": false
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Home Assistant",
       "description": "",
-      "fill": 1,
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
+        "h": 12,
         "w": 20,
         "x": 0,
         "y": 8
@@ -414,17 +444,17 @@
     {
       "datasource": null,
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 4,
         "x": 20,
         "y": 8
       },
       "header_js": "{}",
-      "id": 15,
+      "id": 17,
       "method": "GET",
       "mode": "trustedHtml",
       "options": {},
-      "params_js": "{\n from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n to:ctrl.range.to.format('x'), \n height:ctrl.height,\n now:Date.now(),\n interval: ctrl.template('$__interval'),\n sample: 'Not escaped: $__interval',\n since:ctrl.lastRequestTime\n}",
+      "params_js": "{\n from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n to:ctrl.range.to.format('x'), \n height:ctrl.height,\n now:Date.now(),\n interval: ctrl.template('$__interval'),\n sample: 'Not escaped: $__interval',\n since:ctrl.lastRequestTime,\n retain: false,\n}",
       "request": "http",
       "responseType": "text",
       "showErrors": true,
@@ -436,9 +466,39 @@
       "templateResponse": true,
       "timeFrom": null,
       "timeShift": null,
-      "title": "Calibrate PSI Sensors",
+      "title": "Manual PSI Input",
       "type": "ryantxu-ajax-panel",
-      "url": "https://ummon.$domain/api/sensor/13/calibrate/",
+      "url": "https://ummon.$domain/seedship/ss_water_system/psi_manual_input",
+      "withCredentials": false
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 14
+      },
+      "header_js": "{}",
+      "id": 20,
+      "method": "GET",
+      "mode": "trustedHtml",
+      "options": {},
+      "params_js": "{\n from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n to:ctrl.range.to.format('x'), \n height:ctrl.height,\n now:Date.now(),\n interval: ctrl.template('$__interval'),\n sample: 'Not escaped: $__interval',\n since:ctrl.lastRequestTime,\n retain: false,\n}",
+      "request": "http",
+      "responseType": "text",
+      "showErrors": true,
+      "showTime": false,
+      "showTimeFormat": "LTS",
+      "showTimePrefix": null,
+      "showTimeValue": "request",
+      "skipSameURL": true,
+      "templateResponse": true,
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Mist For Seconds",
+      "type": "ryantxu-ajax-panel",
+      "url": "https://ummon.$domain/seedship/${SeedShips:csv}/mist_for_seconds",
       "withCredentials": false
     },
     {
@@ -453,7 +513,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 20
       },
       "hiddenSeries": false,
       "id": 12,
@@ -572,46 +632,6 @@
       }
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                385
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "message": "Pump running dry!",
-        "name": "Pump System alert",
-        "noDataState": "no_data",
-        "notifications": [
-          {
-            "uid": "T2KZGOqWz"
-          }
-        ]
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -623,10 +643,10 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 20
       },
       "hiddenSeries": false,
-      "id": 13,
+      "id": 11,
       "legend": {
         "avg": false,
         "current": false,
@@ -672,7 +692,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "PSI",
+          "measurement": "lx",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -694,73 +714,17 @@
           "tags": [
             {
               "key": "entity_id",
-              "operator": "=",
-              "value": "seedship_02_root_zone_psi"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "entity_id"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "W",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "entity_id",
-              "operator": "=",
-              "value": "sp20_06_wattage"
+              "operator": "=~",
+              "value": "/[[SeedShips]]/"
             }
           ]
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 385
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Pump System",
+      "title": "Lux",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -809,7 +773,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 28
       },
       "hiddenSeries": false,
       "id": 10,
@@ -939,10 +903,10 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 28
       },
       "hiddenSeries": false,
-      "id": 11,
+      "id": 13,
       "legend": {
         "avg": false,
         "current": false,
@@ -988,7 +952,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "lx",
+          "measurement": "PSI",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1020,7 +984,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Lux",
+      "title": "Pump System",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1139,8 +1103,8 @@
     ]
   },
   "time": {
-    "from": "2020-05-08T19:37:59.270Z",
-    "to": "2020-05-08T19:47:59.270Z"
+    "from": "now-6h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1159,5 +1123,5 @@
   "timezone": "",
   "title": "Seedships",
   "uid": "zzL6l7fWz",
-  "version": 1
+  "version": 23
 }
