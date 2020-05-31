@@ -16,8 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1590634434094,
+  "iteration": 1590888696811,
   "links": [],
   "panels": [
     {
@@ -257,7 +256,7 @@
       "method": "GET",
       "mode": "trustedHtml",
       "options": {},
-      "params_js": "{\n from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n to:ctrl.range.to.format('x'), \n height:ctrl.height,\n now:Date.now(),\n interval: ctrl.template('$__interval'),\n sample: 'Not escaped: $__interval',\n since:ctrl.lastRequestTime,\n retain: false,\n}",
+      "params_js": "{}",
       "request": "http",
       "responseType": "text",
       "showErrors": true,
@@ -283,10 +282,10 @@
     "list": [
       {
         "allValue": null,
-        //"current": {
-        //  "text": "PSI",
-        //  "value": "PSI"
-        //},
+        "current": {
+          "text": "PSI",
+          "value": "PSI"
+        },
         "datasource": "Home Assistant",
         "definition": "SHOW MEASUREMENTS ON home_assistant WHERE \"entity_id\" =~ /()/",
         "hide": 0,
@@ -308,10 +307,10 @@
       },
       {
         "allValue": null,
-        //"current": {
-        //  "text": "seedship_ss_water_system_psi_manual",
-        //  "value": "seedship_ss_water_system_psi_manual"
-        //},
+        "current": {
+          "text": "seedship_ss_water_system_psi_manual",
+          "value": "seedship_ss_water_system_psi_manual"
+        },
         "datasource": "Home Assistant",
         "definition": "\nSHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE  \"entity_id\" !~ /_raw/",
         "hide": 0,
@@ -369,7 +368,7 @@
         "name": "domain",
         "options": [
           {
-            //"selected": true,
+            "selected": true,
             "text": "spencerslab.duckdns.org",
             "value": "spencerslab.duckdns.org"
           }
@@ -401,5 +400,5 @@
   "timezone": "",
   "title": "Calibrate!",
   "uid": "XaKO_DzGz",
-  "version": 14
+  "version": 16
 }

@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1589561421752,
+  "iteration": 1590888593506,
   "links": [],
   "panels": [
     {
@@ -29,7 +29,7 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 10,
+        "w": 12,
         "x": 0,
         "y": 0
       },
@@ -159,8 +159,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 10,
-        "x": 10,
+        "w": 12,
+        "x": 12,
         "y": 0
       },
       "hiddenSeries": false,
@@ -282,17 +282,17 @@
     {
       "datasource": null,
       "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 20,
-        "y": 0
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 8
       },
       "header_js": "{}",
-      "id": 15,
+      "id": 20,
       "method": "GET",
       "mode": "trustedHtml",
       "options": {},
-      "params_js": "{\n time_range_start:ctrl.range.from.format('x'),  // x is unix ms timestamp\n time_range_end:ctrl.range.to.format('x'), \n interval: ctrl.template('$__interval'),\n seedship_id: ctrl.template('${SeedShips:csv}'),\n}",
+      "params_js": "{}",
       "request": "http",
       "responseType": "text",
       "showErrors": true,
@@ -300,13 +300,43 @@
       "showTimeFormat": "LTS",
       "showTimePrefix": null,
       "showTimeValue": "request",
-      "skipSameURL": false,
+      "skipSameURL": true,
       "templateResponse": true,
       "timeFrom": null,
       "timeShift": null,
-      "title": "Calibrate PSI Sensors",
+      "title": "Mist For Seconds",
       "type": "ryantxu-ajax-panel",
-      "url": "https://ummon.$domain/api/sensor/$calibration_entity/calibrate/",
+      "url": "https://ummon.$domain/seedship/${SeedShips:csv}/root_zone/mist_for_seconds",
+      "withCredentials": false
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "header_js": "{}",
+      "id": 22,
+      "method": "GET",
+      "mode": "trustedHtml",
+      "options": {},
+      "params_js": "{}",
+      "request": "http",
+      "responseType": "text",
+      "showErrors": true,
+      "showTime": false,
+      "showTimeFormat": "LTS",
+      "showTimePrefix": null,
+      "showTimeValue": "request",
+      "skipSameURL": true,
+      "templateResponse": true,
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Manual PSI Input",
+      "type": "ryantxu-ajax-panel",
+      "url": "https://ummon.$domain/seedship/water_supply_01/psi_manual_input",
       "withCredentials": false
     },
     {
@@ -320,9 +350,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 12,
-        "w": 20,
+        "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 2,
@@ -442,66 +472,6 @@
       }
     },
     {
-      "datasource": null,
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 20,
-        "y": 8
-      },
-      "header_js": "{}",
-      "id": 17,
-      "method": "GET",
-      "mode": "trustedHtml",
-      "options": {},
-      "params_js": "{\n from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n to:ctrl.range.to.format('x'), \n height:ctrl.height,\n now:Date.now(),\n interval: ctrl.template('$__interval'),\n sample: 'Not escaped: $__interval',\n since:ctrl.lastRequestTime,\n retain: false,\n}",
-      "request": "http",
-      "responseType": "text",
-      "showErrors": true,
-      "showTime": false,
-      "showTimeFormat": "LTS",
-      "showTimePrefix": null,
-      "showTimeValue": "request",
-      "skipSameURL": true,
-      "templateResponse": true,
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Manual PSI Input",
-      "type": "ryantxu-ajax-panel",
-      "url": "https://ummon.$domain/seedship/ss_water_system/psi_manual_input",
-      "withCredentials": false
-    },
-    {
-      "datasource": null,
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 20,
-        "y": 14
-      },
-      "header_js": "{}",
-      "id": 20,
-      "method": "GET",
-      "mode": "trustedHtml",
-      "options": {},
-      "params_js": "{\n from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n to:ctrl.range.to.format('x'), \n height:ctrl.height,\n now:Date.now(),\n interval: ctrl.template('$__interval'),\n sample: 'Not escaped: $__interval',\n since:ctrl.lastRequestTime,\n retain: false,\n}",
-      "request": "http",
-      "responseType": "text",
-      "showErrors": true,
-      "showTime": false,
-      "showTimeFormat": "LTS",
-      "showTimePrefix": null,
-      "showTimeValue": "request",
-      "skipSameURL": true,
-      "templateResponse": true,
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Mist For Seconds",
-      "type": "ryantxu-ajax-panel",
-      "url": "https://ummon.$domain/seedship/${SeedShips:csv}/mist_for_seconds",
-      "withCredentials": false
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -513,7 +483,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 25
       },
       "hiddenSeries": false,
       "id": 12,
@@ -643,7 +613,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 25
       },
       "hiddenSeries": false,
       "id": 11,
@@ -773,7 +743,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 33
       },
       "hiddenSeries": false,
       "id": 10,
@@ -903,7 +873,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 33
       },
       "hiddenSeries": false,
       "id": 13,
@@ -1058,18 +1028,19 @@
       {
         "allValue": null,
         "current": {
-          "text": "seedship_01_ambiant_humidity",
-          "value": "seedship_01_ambiant_humidity"
+          "selected": true,
+          "text": "seedship_ss_water_system_psi_manual",
+          "value": "seedship_ss_water_system_psi_manual"
         },
         "datasource": "Home Assistant",
-        "definition": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /seedship/",
+        "definition": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /^[SeedShips]/",
         "hide": 0,
         "includeAll": false,
-        "label": "Calibration Enitity",
+        "label": "Sensors",
         "multi": false,
-        "name": "calibration_entity",
+        "name": "sensors",
         "options": [],
-        "query": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /seedship/",
+        "query": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /^[SeedShips]/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1082,7 +1053,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "spencerslab.duckdns.org",
           "value": "spencerslab.duckdns.org"
         },
@@ -1091,7 +1062,7 @@
         "name": "domain",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "spencerslab.duckdns.org",
             "value": "spencerslab.duckdns.org"
           }
@@ -1123,5 +1094,5 @@
   "timezone": "",
   "title": "Seedships",
   "uid": "zzL6l7fWz",
-  "version": 23
+  "version": 24
 }
