@@ -15,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1590888593506,
+  "id": null,
+  "iteration": 1591846832677,
   "links": [],
   "panels": [
     {
@@ -385,7 +386,7 @@
           "groupBy": [
             {
               "params": [
-                "1m"
+                "10s"
               ],
               "type": "time"
             },
