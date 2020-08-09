@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1594001637211,
+  "iteration": 1594001637212,
   "links": [],
   "panels": [
     {
@@ -279,13 +279,7 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": "seedship_01 + seedship_02",
-          "value": [
-            "seedship_01",
-            "seedship_02"
-          ]
-        },
+        "current": {},
         "datasource": "Home Assistant",
         "definition": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /seedship/",
         "hide": 0,
@@ -307,11 +301,7 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": true,
-          "text": "root_zone_water_intake",
-          "value": "root_zone_water_intake"
-        },
+        "current": {},
         "datasource": "Home Assistant",
         "definition": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE  \"entity_id\" =~ /_dosage/ AND \"entity_id\" =~ /[SeedShips]/",
         "hide": 0,
@@ -377,5 +367,5 @@
   "timezone": "",
   "title": "Dosages",
   "uid": "wA8w5-GGz",
-  "version": 16
+  "version": 18
 }

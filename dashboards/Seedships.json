@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1591846832677,
+  "iteration": 1596771606687,
   "links": [],
   "panels": [
     {
@@ -1001,12 +1001,7 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": "Home Assistant",
         "definition": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /seedship/",
         "hide": 0,
@@ -1028,11 +1023,7 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": true,
-          "text": "seedship_ss_water_system_psi_manual",
-          "value": "seedship_ss_water_system_psi_manual"
-        },
+        "current": {},
         "datasource": "Home Assistant",
         "definition": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /^[SeedShips]/",
         "hide": 0,
@@ -1053,11 +1044,7 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": true,
-          "text": "spencerslab.duckdns.org",
-          "value": "spencerslab.duckdns.org"
-        },
+        "current": {},
         "hide": 0,
         "label": null,
         "name": "domain",
@@ -1095,5 +1082,5 @@
   "timezone": "",
   "title": "Seedships",
   "uid": "zzL6l7fWz",
-  "version": 24
+  "version": 27
 }
