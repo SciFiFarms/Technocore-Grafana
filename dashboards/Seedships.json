@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1596771606687,
+  "iteration": 1597613409613,
   "links": [],
   "panels": [
     {
@@ -1003,16 +1002,16 @@
         "allValue": null,
         "current": {},
         "datasource": "Home Assistant",
-        "definition": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /seedship/",
+        "definition": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /(seedship|water_supply)/",
         "hide": 0,
         "includeAll": true,
         "label": "SeedShips",
         "multi": true,
         "name": "SeedShips",
         "options": [],
-        "query": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /seedship/",
+        "query": "SHOW TAG VALUES ON \"home_assistant\" WITH KEY = \"entity_id\"  WHERE \"entity_id\" =~ /(seedship|water_supply)/",
         "refresh": 2,
-        "regex": "/(seedship_\\d+).*/",
+        "regex": "/(seedship_\\d+|water_supply_\\d+).*/",
         "skipUrlSync": false,
         "sort": 3,
         "tagValuesQuery": "",
@@ -1044,20 +1043,26 @@
         "useTags": false
       },
       {
+        "allValue": null,
         "current": {},
-        "hide": 0,
+        "datasource": "Home Assistant",
+        "definition": "SELECT last(\"state\") FROM \"domain\" WHERE \"entity_id\" =~ /fqdn/",
+        "hide": 2,
+        "includeAll": false,
         "label": null,
+        "multi": false,
         "name": "domain",
-        "options": [
-          {
-            "selected": true,
-            "text": "spencerslab.duckdns.org",
-            "value": "spencerslab.duckdns.org"
-          }
-        ],
-        "query": "spencerslab.duckdns.org",
+        "options": [],
+        "query": "SELECT last(\"state\") FROM \"domain\" WHERE \"entity_id\" =~ /fqdn/",
+        "refresh": 1,
+        "regex": "",
         "skipUrlSync": false,
-        "type": "textbox"
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
@@ -1082,5 +1087,5 @@
   "timezone": "",
   "title": "Seedships",
   "uid": "zzL6l7fWz",
-  "version": 27
+  "version": 37
 }

@@ -359,24 +359,26 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "spencerslab.duckdns.org",
-          "value": "spencerslab.duckdns.org"
-        },
+        "allValue": null,
+        "current": {},
+        "datasource": "Home Assistant",
+        "definition": "SELECT last(\"state\") FROM \"domain\" WHERE \"entity_id\" =~ /fqdn/",
         "hide": 2,
-        "label": "Domain",
+        "includeAll": false,
+        "label": null,
+        "multi": false,
         "name": "domain",
-        "options": [
-          {
-            "selected": true,
-            "text": "spencerslab.duckdns.org",
-            "value": "spencerslab.duckdns.org"
-          }
-        ],
-        "query": "spencerslab.duckdns.org",
+        "options": [],
+        "query": "SELECT last(\"state\") FROM \"domain\" WHERE \"entity_id\" =~ /fqdn/",
+        "refresh": 1,
+        "regex": "",
         "skipUrlSync": false,
-        "type": "constant"
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
