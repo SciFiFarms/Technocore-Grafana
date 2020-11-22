@@ -9,17 +9,8 @@ volumes:
   influxdb:
 
 secrets:
-  grafana_influxdb_password:
-    name: ${STACK_NAME:-technocore}_grafana_influxdb_password
-    external: true
   grafana_admin_password:
     name: ${STACK_NAME:-technocore}_grafana_admin_password
-    external: true
-  influxdb_admin_password:
-    name: ${STACK_NAME:-technocore}_influxdb_admin_password
-    external: true
-  influxdb_grafana_password:
-    name: ${STACK_NAME:-technocore}_influxdb_grafana_password
     external: true
 
 services:
@@ -69,52 +60,17 @@ services:
       - GF_SMTP_FROM_NAME=${GF_SMTP_FROM_NAME:-Grafana}
       - GF_SMTP_HOST=smtp_relay:587
       - GF_PANELS_DISABLE_SANITIZE_HTML=true
-      #- GF_SMTP_USER=${GF_SMTP_USER}
-      #- GF_SMTP_PASSWORD=${GF_SMTP_PASSWORD}
+      - DOMAIN=${DOMAIN:-}
     image: ${image_provider:-scififarms}/technocore-grafana:${TAG:-latest}
-    #image: stefanprodan/swarmprom-grafana:5.3.4
     logging:
       driver: "${LOGGING_DRIVER}"
       options:
         tag: "{{.Name}}"
     networks:
       - grafana
-      - grafana-private
     secrets:
-      - source: grafana_influxdb_password
-        target: influxdb_password
       - source: grafana_admin_password
         target: admin_password
     volumes:
       - grafana:/var/lib/grafana
       - ${DEV_MOUNT_GRAFANA_MIGRATIONS:-$EMPTY_MOUNT}
-
-  influxdb:
-    deploy:
-      labels:
-        - com.ouroboros.enable=true
-      mode: global
-      restart_policy:
-        condition: any
-    environment:
-      - INFLUXDB_ADMIN_USER=$ADMIN_USER
-      - INFLUXDB_ADMIN_PASSWORD={{"{{DOCKER-SECRET:admin_password}}"}}
-      - INFLUXDB_USER=home_assistant
-      - INFLUXDB_USER_PASSWORD={{"{{DOCKER-SECRET:home_assistant_password}}"}}
-      - INFLUXDB_READ_USER=grafana
-      - INFLUXDB_READ_USER_PASSWORD={{"{{DOCKER-SECRET:grafana_password}}"}}
-    image: ${image_provider:-scififarms}/technocore-influxdb:${TAG:-latest}
-    logging:
-      driver: "${LOGGING_DRIVER}"
-      options:
-        tag: "{{.Name}}"
-    networks:
-      - grafana-private
-    secrets:
-      - source: influxdb_admin_password
-        target: admin_password
-      - source: influxdb_grafana_password
-        target: grafana_password
-    volumes:
-      - influxdb:/var/lib/influxdb
-      

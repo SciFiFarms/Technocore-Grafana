@@ -1,0 +1,30 @@
+version: "3.5"
+
+networks:
+  influxdb-grafana:
+
+secrets:
+  influxdb_grafana_password:
+    name: ${STACK_NAME:-technocore}_influxdb_grafana_password
+    external: true
+  grafana_influxdb_password:
+    name: ${STACK_NAME:-technocore}_grafana_influxdb_password
+    external: true
+
+services:
+  influxdb:
+    networks:
+      - influxdb-grafana
+    secrets:
+      - source: influxdb_grafana_password
+        target: users/grafana
+
+  grafana:
+    networks:
+      - influxdb-grafana
+    secrets:
+      - source: grafana_influxdb_password
+        target: influxdb_password
+
+
+
