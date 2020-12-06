@@ -4,4 +4,4 @@ datasources:
   - name: Prometheus
     type: prometheus
     access: proxy
-    url: http://health:9090/health/
+    url: http://prometheus:9090/

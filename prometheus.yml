@@ -1,0 +1,12 @@
+version: "3.5"
+networks:
+  grafana-prometheus:
+
+services:
+  prometheus:
+    networks:
+      - grafana-prometheus
+
+  grafana:
+    networks:
+      - grafana-prometheus
