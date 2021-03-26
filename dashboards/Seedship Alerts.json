@@ -102,13 +102,13 @@
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "1m"
               ],
               "type": "time"
             },
             {
               "params": [
-                "previous"
+                "none"
               ],
               "type": "fill"
             }
@@ -1321,5 +1321,5 @@
   "timezone": "",
   "title": "Seedship Alerts",
   "uid": "FL9YqvqWk",
-  "version": 131
+  "version": 133
 }
